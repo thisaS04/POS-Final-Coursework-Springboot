@@ -1,19 +1,31 @@
 package com.ijse.springbootFinalCW.service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ijse.springbootFinalCW.dto.UserDto;
+import com.ijse.springbootFinalCW.entity.User;
+import com.ijse.springbootFinalCW.repository.UserRepository;
 
+
+@Service
 public class UserServiceImpl implements UserService{
+@Autowired
+private  UserRepository userRepository;
+@Autowired
+private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDto registerUser(UserDto userDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registerUser'");
+    public User createUser(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override
-    public UserDto findByUsername(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByUsername'");
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
     }
+
+   
     
 }
