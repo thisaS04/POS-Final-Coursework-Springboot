@@ -13,8 +13,7 @@ import com.ijse.springbootFinalCW.repository.UserRepository;
 public class UserDetailServiceImpl implements UserDetailsService {
  @Autowired
     private UserRepository userRepository;
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+   
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username).orElse(null);
